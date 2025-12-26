@@ -1,10 +1,9 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, MessageFlags } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('刪除訊息')
     .setDescription('刪除指定數量的訊息（管理員限定）')
-    // 🔐 管理員權限（Manage Messages）
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
     .addIntegerOption(option =>
       option
@@ -19,18 +18,19 @@ module.exports = {
     if (amount < 1 || amount > 100) {
       return interaction.reply({
         content: '❌ 數量必須介於 1~100',
-        ephemeral: true,
+        flags: [MessageFlags.Ephemeral], 
       });
     }
 
     try {
-      // 先 defer，避免 3 秒超時
-      await interaction.deferReply({ ephemeral: true });
+      // 使用 flags 代替 ephemeral
+      await interaction.deferReply({ flags: [MessageFlags.Ephemeral] });
 
       const messages = await interaction.channel.messages.fetch({
         limit: amount,
       });
 
+      // bulkDelete 的第二個參數 true 代表過濾掉超過 14 天的訊息（Discord 不允許大量刪除舊訊息）
       const deleted = await interaction.channel.bulkDelete(messages, true);
 
       await interaction.editReply({
@@ -39,10 +39,14 @@ module.exports = {
     } catch (err) {
       console.error('刪除訊息錯誤:', err);
 
-      if (!interaction.replied) {
+      if (!interaction.replied && !interaction.deferred) {
         await interaction.reply({
           content: '❌ 刪除失敗，請確認 Bot 權限或訊息是否超過 14 天',
-          ephemeral: true,
+          flags: [MessageFlags.Ephemeral],
+        });
+      } else {
+        await interaction.editReply({
+          content: '❌ 刪除失敗，請確認 Bot 權限或訊息是否超過 14 天',
         });
       }
     }

@@ -5,6 +5,7 @@ module.exports = [
 	{
 		languageOptions: {
 			ecmaVersion: 'latest',
+			sourceType:'CommonJS'
 		},
 		rules: {},
 	},

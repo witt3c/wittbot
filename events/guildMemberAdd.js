@@ -13,7 +13,7 @@ module.exports = {
         const welcomeEmbed = new EmbedBuilder()
             .setColor('#026FFF')
             .setAuthor({ 
-                name: `歡迎加入 ${member.guild.name} :tada: :tada: `, 
+                name: `歡迎加入 ${member.guild.name} 🎉🎉 `, 
                 iconURL: member.guild.iconURL({ dynamic: true }) || 'https://i.imgur.com/default-server.png' 
             })
             .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
@@ -52,28 +52,44 @@ PLAY GAMEING--CHILL PLAYING
                 `);
                 break;
 
+            case '943498383170101298': // 橫行霸道
+                welcomeEmbed.setDescription(`
+熱烈掌聲給 ${member} :clap: :clap:
+歡迎您加入 **${member.guild.name} DC 社群** :video_game: :video_game: 
+
+\`\`\`
+恭喜本＂耍廢群＂
+迎來第 ${member.guild.memberCount} 個惠仔
+\`\`\`
+
+:loudspeaker: 本社群設有個人語音通話模組
+可點擊個遊戲群組中建立語音頻道
+即可創建個人專屬房間
+或您也可以加入已創建完成之專屬房
+
+再次歡迎 ${member.user.globalName} 的加入
+                `);
+                break;    
+
             case '1048586401618329670': // Naykkei 的伺服器
                 welcomeEmbed.setDescription(`
 熱烈掌聲給 ${member} :clap: :clap:
 歡迎您加入 **${member.guild.name} DC 社群** :video_game: :video_game: 
 
 \`\`\`
-NAYKKEI 的伺服器
-測試專用
+恭喜本＂耍廢群＂
+迎來第 ${member.guild.memberCount} 個惠仔
 \`\`\`
 
-:warning: 進入本社群頻道 請至頻道左上方 【頻道與身分組】
-確認遊玩遊戲頻道 與 聊天群組
-如未加選身分組 該頻道將不會顯示
-往後依舊仍可自行選擇添加
-
-:loudspeaker: 本社群測試中
-有問題請告知
+:loudspeaker: 本社群設有個人語音通話模組
+可點擊個遊戲群組中建立語音頻道
+即可創建個人專屬房間
+或您也可以加入已創建完成之專屬房
 
 再次歡迎 ${member.user.globalName} 的加入
-測試辛苦了
                 `);
                 break;
+
 
             case '1452546484909375543': // 新測試用伺服器
                 welcomeEmbed.setDescription(`

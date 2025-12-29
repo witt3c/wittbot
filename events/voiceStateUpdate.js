@@ -3,10 +3,10 @@ const { Events } = require('discord.js');
 module.exports = {
     name: Events.VoiceStateUpdate,
     async execute(oldState, newState) {
-        // 從 client 取得全域變數
         const { client } = newState;
         const { config, dynamicVoiceChannels } = client;
 
+        // 建立頻道配置表 (ID : 房間名稱)
         const voiceConfigs = {
             [config.originalVoiceChannelp1Id]: '的遊戲頻道',
             [config.originalVoiceChannelp2Id]: '英雄召集令',
@@ -32,29 +32,32 @@ module.exports = {
 
         // --- 建立邏輯 ---
         if (voiceConfigs[newState.channelId] && oldState.channelId !== newState.channelId) {
-            try {
-                const member = newState.member;
-                const category = newState.channel.parent;
-                const suffix = voiceConfigs[newState.channelId];
+            const member = newState.member;
+            const category = newState.channel.parent; // 取得原本頻道的分類
+            const suffix = voiceConfigs[newState.channelId];
 
+            try {
+                // 這裡就是修正後的片段：加入了 category 的防呆判斷
                 const newChannel = await newState.guild.channels.create({
                     name: `${member.user.globalName || member.user.username} ${suffix}`,
-                    type: 2,
-                    parent: category,
+                    type: 2, // 語音頻道
+                    parent: category ? category.id : null, // 修正點：如果沒有分類就不設定，防止報錯
                     permissionOverwrites: category ? category.permissionOverwrites.cache.map(p => ({
-                        id: p.id, allow: p.allow, deny: p.deny
-                    })) : [],
+                        id: p.id, 
+                        allow: p.allow, 
+                        deny: p.deny
+                    })) : [], // 修正點：如果沒有分類就給空陣列
                 });
 
                 await member.voice.setChannel(newChannel);
                 dynamicVoiceChannels.add(newChannel.id);
-            } catch (error) {
-                console.error('建立語音頻道出錯:', error);
+            } catch (err) {
+                console.error('建立動態語音頻道失敗:', err);
             }
         }
 
         // --- 刪除邏輯 ---
-        if (oldState.channelId && dynamicVoiceChannels.has(oldState.channelId) && newState.channelId !== oldState.channelId) {
+        if (dynamicVoiceChannels.has(oldState.channelId) && newState.channelId !== oldState.channelId) {
             const channel = oldState.channel;
             if (channel && channel.members.size === 0) {
                 try {

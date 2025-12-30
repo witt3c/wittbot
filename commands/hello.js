@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder,MessageFlags } = require('discord.js');
+const { Version } = require('../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -16,7 +17,7 @@ module.exports = {
                 { name: '目前狀態', value: '🚀 運作良好，隨時準備為您服務。' },
                 { name: '核心功能', value: '• 動態語音頻道管理\n• 伺服器歡迎與離開提醒\n• 多伺服器獨立設定\n\n👉👉使用/info來查看指令吧!' }
             )
-            .setFooter({ text: `服務伺服器：${interaction.guild.name} | 版本 v1.5.2` })
+            .setFooter({ text: `服務伺服器：${interaction.guild.name} | 版本 ${Version}` })
             .setTimestamp();
 
         // 發送回覆

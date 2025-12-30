@@ -1,7 +1,10 @@
 {
+    "Version":"V1.5.4",    
     "token":"123456789",
     "clientId":"123456789",
     "soClientId":"123456789",
+    "RiotLoLAPI":"RGAPI-e9af78767fd5f",
+    "RiotTFTAPI":"RGAPI-e7823456bd07f978f",
 
     
     "//": "naykkei的伺服器-一般------",

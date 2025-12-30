@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder,MessageFlags } = require('discord.js');
 
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('server')
@@ -9,7 +10,7 @@ module.exports = {
         
         const serverEmbed = new EmbedBuilder()
             .setColor('#026FFF')
-            .setTitle(`📊 ${guild.name} 伺服器資訊　　　`)
+            .setTitle(`📊 ${guild.name} 伺服器資訊     `)
             .setThumbnail(guild.iconURL({ dynamic: true }))
             .addFields(
                 { name: '👑 創辦人', value: `<@${guild.ownerId}>`, inline: true },

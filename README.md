@@ -4,9 +4,29 @@
 
 1.動態語音功能
 
-
 ![Adobe Express - 螢幕錄製 2025-12-31 103418](https://github.com/user-attachments/assets/26b5ff73-ba76-4141-a351-5d720838a806)
 
+2.發送當日熱門迷因
+
+![Adobe Express - 螢幕錄製 2025-12-31 103916](https://github.com/user-attachments/assets/9e267aa1-5a3f-4f14-ae03-32747680eae6)
+
+3.批次大量刪除頻道訊息
+
+![錄製內容 2025-12-31 104306](https://github.com/user-attachments/assets/c4e9e3c6-8f92-4545-9df0-6adea7e8c71a)
+
+4.丟硬幣擲骰子來決定事情
+
+![螢幕錄製 2025-12-31 104753](https://github.com/user-attachments/assets/4a69835e-d235-49b7-98fd-5012116b753d)
+
+5.查詢英雄聯盟玩家專精 排位 近五場戰績
+
+![螢幕錄製 2025-12-31 105315](https://github.com/user-attachments/assets/301216db-e37c-4950-b023-192d034b40f1)
+
+/n
+
+/n
+
+/n
 
 
 
@@ -14,56 +34,16 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+V1.5.6 更新於2025/12/31 AM.11
+--------
+修復動態語音未顯示社群伺服器別名問題，完善英雄聯盟戰績顯示，刪除音樂撥放功能
 
 
 V1.5.5 更新於2025/12/29 PM.05
 --------
 修復puuid字串超button限制100字串問題，
-修復英雄聯盟玩家JackSparrowÜ#tw2搜尋不到問題
-修復/meme梗圖獲取來源
+修復英雄聯盟玩家JackSparrowÜ#tw2搜尋不到問題，
+修復/meme梗圖獲取來源．
 優化lolapi英雄照片快取問體
 
 

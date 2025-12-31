@@ -2,7 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('骰子硬幣')
+        .setName('硬幣骰子')
         .setDescription('娛樂小工具')
         .addSubcommand(sub => 
             sub.setName('擲骰子')

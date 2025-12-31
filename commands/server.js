@@ -3,7 +3,7 @@ const { SlashCommandBuilder, EmbedBuilder,MessageFlags } = require('discord.js')
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('server')
+        .setName('伺服資訊')
         .setDescription('查看目前伺服器的詳細狀態'),
     async execute(interaction) {
         const { guild } = interaction;

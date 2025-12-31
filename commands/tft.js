@@ -18,7 +18,7 @@ module.exports = {
             const accountResp = await fetch(`https://asia.api.riotgames.com/riot/account/v1/accounts/by-game-name/${encodeURIComponent(name)}/${encodeURIComponent(tag)}?api_key=${RiotTFTAPI}`);
             const accountData = await accountResp.json();
 
-            if (!accountData.puuid) return await interaction.editReply(`❌ 找不到戰棋玩家：**${name}#${tag}**(!!!!!系統建置中，未完成建置，詳細請洽管理員 naykkei)`);
+            if (!accountData.puuid) return await interaction.editReply(`❌ 找不到戰棋玩家：**${name}#${tag}**\n(!!!!!系統建置中，未完成建置，詳細請洽管理員 naykkei)`);
 
             const summonerResp = await fetch(`https://tw2.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${accountData.puuid}?api_key=${RiotTFTAPI}`);
             const summonerData = await summonerResp.json();

@@ -3,24 +3,40 @@ const { Version } = require('../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('hello')
-        .setDescription('讓維特助手向你打個招呼'),
+        .setName('維特你好')
+        .setDescription('讓維特助手向您介紹自己'),
     async execute(interaction) {
-        // 建立一個精美的介紹嵌入訊息 (Embed)
         const helloEmbed = new EmbedBuilder()
             .setColor('#026FFF')
             .setTitle('👋 您好！我是 維特Witt DC助手')
             .setThumbnail(interaction.client.user.displayAvatarURL())
             .setDescription(`很高興見到你，${interaction.user}！`)
-            .addFields(
-                { name: '關於我', value: '我是由 naykkei(Witt) 開發的多功能助手，專門為社群提供自動化服務。' },
-                { name: '目前狀態', value: '🚀 運作良好，隨時準備為您服務。' },
-                { name: '核心功能', value: '• 動態語音頻道管理\n• 伺服器歡迎與離開提醒\n• 多伺服器獨立設定\n\n👉👉使用/info來查看指令吧!' }
+            .addFields(  
+                { name: '\u200B', value: '\u200B' },               
+                { 
+                    name: '🛠️ 核心功能一覽', 
+                    value: '```md\n# 動態語音頻道\n* 創建、管理臨時個人語音頻道\n\n# 新朋友歡迎語\n* 歡迎新成員與離開通知\n\n# 英雄聯盟戰績\n* 查詢英雄聯盟玩家專精排位\n\n# 小遊戲增感情\n* 小遊戲擲骰子丟硬幣來解決選擇困難```',
+                },                              
+                { name: '\u200B', value: '\u200B' },
+                { 
+                    name: '📊 運行狀態', 
+                    value: `> **版本：** \`${Version}\`\n> **狀態：** \`穩定運作🚀\``, 
+                    inline: true 
+                },
+                { 
+                    name: '💡 幫助', 
+                    value: `> 輸入 \`/介紹指令\`\n> 查看完整指令`, 
+                    inline: true 
+                },
+                { 
+                    name: '👤 關於開發者', 
+                    value: `> <@393579380674134016>\n> bug 請協助通報`, 
+                    inline: true 
+                }
             )
-            .setFooter({ text: `服務伺服器：${interaction.guild.name} | 版本 ${Version}` })
+            .setFooter({ text: `🏡 當前伺服器：${interaction.guild.name}` })
             .setTimestamp();
 
-        // 發送回覆
-        await interaction.reply({ embeds: [helloEmbed] ,flags: MessageFlags.Ephemeral});
+        await interaction.reply({ embeds: [helloEmbed], flags: MessageFlags.Ephemeral });
     },
 };

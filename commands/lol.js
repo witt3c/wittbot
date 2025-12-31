@@ -15,7 +15,7 @@ module.exports = {
         .addStringOption(opt => 
             opt.setName('tag')
                .setNameLocalization('zh-TW', '標籤')
-               .setDescription('輸入 # 後的標籤 (例如 TW1)')
+               .setDescription('輸入 # 後的標籤 (例如 tw2)')
                .setRequired(true)
         ),
 
@@ -46,27 +46,27 @@ module.exports = {
                     { name: '📊 等級', value: `\`${summonerData.summonerLevel}\``, inline: true },
                     { name: '🌍 地區', value: '`台港澳 (TW2)`', inline: true }
                 )
-                .setDescription('**請選擇您想查詢的詳細資料：**')
+                .setDescription(`**已查詢到召喚師【${name}#${tag}】的詳細資料**`)
                 .setFooter({ text: '點擊下方按鈕進行進階查詢' });
 
             // 4. 建立按鈕 (使用 | 作為安全分隔符)
             const buttons = new ActionRowBuilder().addComponents(
                 new ButtonBuilder()
-                    .setCustomId(`mastery|${accountData.puuid}|${name}|${tag}`)
+                    .setCustomId(`mastery|${accountData.puuid}`)
                     .setLabel('英雄專精')
                     .setEmoji('🔥')
                     .setStyle(ButtonStyle.Primary),
                 new ButtonBuilder()
-                    .setCustomId(`rank|${accountData.puuid}|${name}|${tag}`)
-                    .setLabel('牌位排名')
+                    .setCustomId(`rank|${accountData.puuid}`)
+                    .setLabel('排位排名')
                     .setEmoji('🏆')
                     .setStyle(ButtonStyle.Success),
                 new ButtonBuilder()
-                    .setCustomId(`history|${accountData.puuid}|${name}|${tag}`)
+                    .setCustomId(`history|${accountData.puuid}`)
                     .setLabel('近期戰績')
                     .setEmoji('📜')
                     .setStyle(ButtonStyle.Secondary)
-            );
+);
 
             await interaction.editReply({ embeds: [mainEmbed], components: [buttons] });
 

@@ -2,33 +2,43 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('meme')
-        .setDescription('隨機抽出一張台灣經典迷因 (方案 B)'),
+        .setName('今日迷因')
+        .setDescription('從 memes.tw 抓取台灣本土熱門迷因'),
+
     async execute(interaction) {
-        // 這裡收集了台灣網路文化中常見的經典迷因
-        const twMemes = [
-            { title: '杰哥不要！', url: 'https://i.imgur.com/e1nS3P3.jpg' },
-            { title: '我就爛', url: 'https://i.imgur.com/8991Y1I.jpg' },
-            { title: '這我也布吉島', url: 'https://i.imgur.com/6XyUeGz.png' },
-            { title: '真香', url: 'https://i.imgur.com/6M6k8Xo.jpg' },
-            { title: '你這樣我會很難辦', url: 'https://i.imgur.com/zXn9L6V.jpg' },
-            { title: '又是你，你最爛', url: 'https://i.imgur.com/7v68sF0.jpg' },
-            { title: '想也知道', url: 'https://i.imgur.com/E87q2i3.jpg' },
-            { title: '嚇到吃手手', url: 'https://i.imgur.com/yv89Gz4.jpg' },
-            { title: '這就是我要的！', url: 'https://i.imgur.com/yN67X7y.jpg' },
-            { title: '看好了世界，我只示範一次', url: 'https://i.imgur.com/D8v0G2r.jpg' }
-        ];
+        // 1. 先給予初步回應，因為抓取 API 需要一點時間
+        await interaction.deferReply();
 
-        // 隨機選出一張
-        const randomMeme = twMemes[Math.floor(Math.random() * twMemes.length)];
+        try {
+            // 2. 呼叫 memes.tw API (取得今日熱門)
+            // 註：這是一個公開的 API 節點
+            const response = await fetch('https://memes.tw/wtf/api');
+            const memes = await response.json();
 
-        const memeEmbed = new EmbedBuilder()
-            .setColor('#026FFF')
-            .setTitle(`🇹🇼 台灣本土迷因：${randomMeme.title}`)
-            .setImage(randomMeme.url)
-            .setFooter({ text: `WittBot 迷因倉庫 | 隨手一抽，必屬精品` })
-            .setTimestamp();
+            if (!memes || memes.length === 0) {
+                return await interaction.editReply('❌ 目前找不到迷因，請稍後再試。');
+            }
 
-        await interaction.reply({ embeds: [memeEmbed] });
+            // 3. 隨機從清單中挑選一個迷因
+            const randomMeme = memes[Math.floor(Math.random() * memes.length)];
+
+            // 4. 建立 Embed 卡片
+            const memeEmbed = new EmbedBuilder()
+                .setColor('#f1c40f') // 金黃色
+                .setTitle(randomMeme.title || '台灣在地迷因')
+                .setURL(`https://memes.tw/wtf/${randomMeme.id}`) // 點擊標題連回原網站
+                .setImage(randomMeme.src) // 迷因圖片網址
+                .setFooter({ 
+                    text: `👍 ${randomMeme.notbad_count} | 💬 ${randomMeme.comment_count} | 來源：memes.tw` 
+                })
+                .setTimestamp();
+
+            // 5. 回傳迷因
+            await interaction.editReply({ embeds: [memeEmbed] });
+
+        } catch (error) {
+            console.error('Meme Error:', error);
+            await interaction.editReply('❌ 抓取迷因時發生錯誤，請檢查網路連線。');
+        }
     },
 };

@@ -5,6 +5,7 @@ module.exports = {
     async execute(member) {
         // 全伺服器紀錄檔
         console.log(`🎉 ${member.user.tag} 加入 ${member.guild.name} (${member.guild.id})`);
+        //console.log(member);
 
         const channel = member.guild.systemChannel;
         if (!channel) return console.log('❌ 找不到系統歡迎頻道');

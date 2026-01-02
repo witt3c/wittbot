@@ -38,8 +38,9 @@ module.exports = {
 
             try {
                 // 這裡就是修正後的片段：加入了 category 的防呆判斷
+                const channelName = `${member.displayName}${suffix}`;
                 const newChannel = await newState.guild.channels.create({
-                    name: `${member.user.globalName || member.user.username} ${suffix}`,
+                    name: channelName,
                     type: 2, // 語音頻道
                     parent: category ? category.id : null, // 修正點：如果沒有分類就不設定，防止報錯
                     permissionOverwrites: category ? category.permissionOverwrites.cache.map(p => ({

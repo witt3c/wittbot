@@ -47,7 +47,7 @@ module.exports = {
                     { name: '🌍 地區', value: '`台港澳 (TW2)`', inline: true }
                 )
                 .setDescription(`**已查詢到召喚師【${name}#${tag}】的詳細資料**`)
-                .setFooter({ text: '點擊下方按鈕進行進階查詢' });
+                .setFooter({ text: '點擊下方按鈕進行進階查詢(僅你可見)' });
 
             // 4. 建立按鈕 (使用 | 作為安全分隔符)
             const buttons = new ActionRowBuilder().addComponents(

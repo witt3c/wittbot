@@ -7,20 +7,21 @@ const { RiotLoLAPI } = require('../config.json');
 let championCache = null;
 
 const tierLabels = {
-    'CHALLENGER': '菁英',
-    'GRANDMASTER': '宗師',
-    'MASTER': '大師',
-    'DIAMOND': '鑽石',
+    'CHALLENGER': '<:lolchallenger:1456536737391181877> 菁英',
+    'GRANDMASTER': '<:lolgrandmaster:1456536732311748731> 宗師',
+    'MASTER': '<:lolmaster:1456536729308758080> 大師',
+    'DIAMOND': '<:loldiamond:1456536735826710588> 鑽石',
     'EMERALD': '翡翠',
-    'PLATINUM': '白金',
-    'GOLD': '金牌',
-    'SILVER': '銀牌',
-    'BRONZE': '銅牌',
-    'IRON': '鐵牌',
+    'PLATINUM': '<:lolplatinum:1456536727417131161> 白金',
+    'GOLD': '<:lolgold:1456536734090399797> 金牌',
+    'SILVER': '<:lolsilver:1456536725479227576> 銀牌',
+    'BRONZE': '<:lolbronze:1456536723688521965> 銅牌',
+    'IRON': '<:loliron:1456536730902728744> 鐵牌',
     'UNRANKED': '未分級'
+
 };
 const modeLabels = {
-    "CLASSIC": "召喚峽谷",
+    "CLASSIC": "一般對戰",
     "ARAM": "隨機單中",
     "URF": "阿福快打",
     "ULTBOOK": "終極咒語",
@@ -126,7 +127,7 @@ async function getMasteryReport(puuid, name = "玩家", tag = "") {
     const attachment = new AttachmentBuilder(canvas.toBuffer(), { name: 'mastery.png' });
     const top10Text = top10.map((m, i) => {
         const cName = champMap[m.championId]?.name || "未知英雄";
-        return `\`${(i + 1).toString().padStart(2, ' ')}.\` **${cName}**\u00A0\u00A0(Lv.${m.championLevel}, ${m.championPoints.toLocaleString()} pts)`;
+        return `\`${(i + 1).toString().padStart(2, ' ')}.\` **${cName}**\u00A0\u00A0(Lv.${m.championLevel} .  ${m.championPoints.toLocaleString()} pts)`;
     }).join('\n');
 
     const embed = new EmbedBuilder()
@@ -218,7 +219,7 @@ async function getHistoryReport(puuid, name, tag) {
         // --- 2. 模式判定 ---
         let modeName = modeLabels[match.info.gameMode] || match.info.gameMode;
         if (match.info.gameMode === "CLASSIC") {
-            if (match.info.queueId === 420) modeName = "單雙排";
+            if (match.info.queueId === 420) modeName = "單/雙排 積分";
             else if (match.info.queueId === 440) modeName = "彈性積分";
             else if (match.info.queueId === 430 || match.info.queueId === 490) modeName = "一般對戰";
         }
@@ -275,4 +276,4 @@ async function getHistoryReport(puuid, name, tag) {
     return { embeds: [embed] };
 }
 
-module.exports = { getMasteryReport, getRankReport, getHistoryReport };
+module.exports = { getChampionMap,getMasteryReport, getRankReport, getHistoryReport };

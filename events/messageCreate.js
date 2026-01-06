@@ -14,9 +14,9 @@ module.exports = {
             await message.reply('目前最新版本為 v1.3.0');
         }
         
-        if (message.content === "?!updating") {
+        if (message.content === "?!lolupdatok") {
             await message.delete();
-            await message.channel.send("目前正在更新迭代中...");
+            await message.channel.send(`\u200B \n輸入 /英雄聯盟 + 召喚師名稱 + 標籤 即可查詢玩家帳號\n指令輸出僅查詢者可見，請放心查詢。`);
         }
     },
 };

@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
+const { setupReminders } = require('./events/row');
 const config = require('./config.json');
 
 const client = new Client({ 
@@ -41,5 +42,12 @@ for (const file of eventFiles) {
         client.on(event.name, (...args) => event.execute(...args));
     }
 }
+
+
+
+client.once('clientReady', (c) => {
+    console.log(`RO世界之旅活動定時提醒已啟動！`);
+    setupReminders(client); 
+});
 
 client.login(config.token);
